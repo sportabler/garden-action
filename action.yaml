@@ -71,18 +71,18 @@ runs:
           fi
 
           # TODO: Consider using download.garden.io
-          gh release download "$tag_param" --pattern '*-linux-amd64.tar.gz' -R garden-io/garden
-          gh release download "$tag_param" --pattern '*-linux-amd64.tar.gz.sha256' -R garden-io/garden
-          checksum=$(openssl dgst -sha256 *-linux-amd64.tar.gz | awk '{ print $2 }')
-          if [ "$checksum" != "$(cat *-linux-amd64.tar.gz.sha256)" ]; then
+          gh release download "$tag_param" --pattern '*-linux-arm64.tar.gz' -R garden-io/garden
+          gh release download "$tag_param" --pattern '*-linux-arm64.tar.gz.sha256' -R garden-io/garden
+          checksum=$(openssl dgst -sha256 *-linux-arm64.tar.gz | awk '{ print $2 }')
+          if [ "$checksum" != "$(cat *-linux-arm64.tar.gz.sha256)" ]; then
             echo "Checksum validation failed." >&2
             exit 1
           fi
-          tar xzf *-linux-amd64.tar.gz
-          rm *-linux-amd64.tar.gz *.sha256
+          tar xzf *-linux-arm64.tar.gz
+          rm *-linux-arm64.tar.gz *.sha256
 
           mkdir -p "$garden_version"
-          mv linux-amd64/* "$garden_version"
+          mv linux-arm64/* "$garden_version"
         fi
 
         # Create new symlink, or overwrite existing
